@@ -11,3 +11,6 @@ frontend/dist/
 .vscode/
 *.iml
 .DS_Store
+
+# written by the Pages workflow
+frontend/public/vehicles.json

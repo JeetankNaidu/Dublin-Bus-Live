@@ -2,7 +2,10 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './style.css';
 
-const POLL_MS = 15000; // the backend refreshes from the NTA every 30s; polling faster just picks changes up sooner
+// With the Spring Boot backend, /api/vehicles refreshes every 30s. The GitHub Pages build instead
+// bakes in a vehicles.json snapshot that a scheduled workflow republishes every few minutes.
+const DATA_URL = import.meta.env.VITE_DATA_URL ?? '/api/vehicles';
+const POLL_MS = 15000;
 const DUBLIN = [53.3498, -6.2603];
 
 const map = L.map('map').setView(DUBLIN, 12);
@@ -78,7 +81,7 @@ function render(snapshot) {
 
 async function poll() {
   try {
-    const res = await fetch('/api/vehicles');
+    const res = await fetch(DATA_URL, { cache: 'no-store' });
     if (!res.ok) throw new Error(`Backend returned HTTP ${res.status}`);
     lastSnapshot = await res.json();
     render(lastSnapshot);

@@ -23,6 +23,23 @@ npm run dev
 
 Open <http://localhost:5173>. The Vite dev server proxies `/api` to the backend.
 
+## Public link (GitHub Pages)
+
+Live at **https://jeetanknaidu.github.io/Dublin-Bus-Live/** once Pages is set up.
+
+GitHub Pages only hosts static files, so `.github/workflows/pages.yml` runs the backend in one-shot mode
+(`--app.export-file=...`) on a schedule. Each run fetches the positions, writes them to `vehicles.json`, builds the
+frontend around that file, and deploys it. GitHub runs scheduled workflows every 5 minutes at most, and sometimes
+later at busy times, so the public map is a few minutes behind. For 30-second updates, run the backend locally or on a server.
+
+One-time setup in the GitHub repo:
+
+1. **Settings → Secrets and variables → Actions → New repository secret**: name `NTA_API_KEY`, value your key.
+2. **Settings → Pages → Build and deployment → Source**: choose **GitHub Actions**.
+3. **Actions → Publish live map to GitHub Pages → Run workflow** to publish straight away.
+
+If a run can't fetch the feed it fails and the last published positions stay up.
+
 ## How Dublin Bus is identified
 
 The realtime feed covers every operator in Ireland. On startup the backend downloads the static Dublin Bus GTFS
