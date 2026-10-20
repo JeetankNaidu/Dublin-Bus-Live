@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dublin Bus Live</title>
+  </head>
+  <body>
+    <header class="bar">
+      <h1>Dublin Bus Live</h1>
+      <label class="filter">
+        Route
+        <input id="route-filter" type="search" placeholder="e.g. 46A" autocomplete="off" />
+      </label>
+      <span id="status" class="status">Loading…</span>
+    </header>
+    <div id="map"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
